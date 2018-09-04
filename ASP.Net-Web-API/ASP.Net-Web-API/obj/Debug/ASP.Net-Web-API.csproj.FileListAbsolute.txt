@@ -73,3 +73,7 @@ C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\obj\Debug\ASP.N
 C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\obj\Debug\ASP.Net-Web-API.csproj.CopyComplete
 C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\obj\Debug\ASP.Net-Web-API.dll
 C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\obj\Debug\ASP.Net-Web-API.pdb
+C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\bin\EntityFramework.dll
+C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\bin\EntityFramework.SqlServer.dll
+C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\bin\EntityFramework.xml
+C:\paul\Projects\ASP.Net-Web-API\ASP.Net-Web-API\ASP.Net-Web-API\bin\EntityFramework.SqlServer.xml
