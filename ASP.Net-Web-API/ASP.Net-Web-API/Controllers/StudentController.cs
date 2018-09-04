@@ -174,6 +174,96 @@ namespace ASP.Net_Web_API.Controllers
             return Ok(Students);
         }
 
+
+        //Posts new student in the datbase
+        
+        public IHttpActionResult PostNewStudent(StudentViewModel student)
+        {
+
+            //This will make sure that the student object includes all the necessary information. If it is not valid, it will return BadRequest response.
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+            }
+
+            using(var ctx = new SchoolEntities())
+            {
+                ctx.Students.Add(new Student()
+                {
+                    StudentID = student.Id,
+                    StudentName = student.StudentName,
+                });
+                ctx.SaveChanges();
+            }
+
+            return Ok();
+
+
+        }
+
+
+
+        //Updates the existing data in the database
+
+        public IHttpActionResult PutStudent(StudentViewModel student)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+
+            }
+
+            using(var ctx = new SchoolEntities())
+            {
+                var existingStudent = ctx.Students.Where(s => s.StudentID == student.Id).FirstOrDefault();
+                
+                if(existingStudent != null)
+                {
+                    existingStudent.StudentName = student.StudentName;
+                    ctx.SaveChanges();
+                }
+
+                else
+                {
+                    NotFound();
+                }
+
+            }
+
+            return Ok();
+        }
+
+
+        //Deletes student data from database
+
+        public IHttpActionResult Delete(int id)
+        {
+            if(id <= 0)
+            {
+                return BadRequest("Not a valid student Id");
+
+            }
+
+            using(var ctx = new SchoolEntities())
+            {
+                var student = ctx.Students
+                    .Where(s => s.StudentID == id)
+                    .FirstOrDefault();
+                if(student != null)
+                {
+                    ctx.Students.Remove(student);
+                    ctx.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+
+            return Ok();
+        }
+
     
     }
 }
