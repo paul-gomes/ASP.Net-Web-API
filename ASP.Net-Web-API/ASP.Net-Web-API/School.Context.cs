@@ -15,10 +15,10 @@ namespace ASP.Net_Web_API
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SchoolEntities : DbContext
+    public partial class SchoolEntities1 : DbContext
     {
-        public SchoolEntities()
-            : base("name=SchoolEntities")
+        public SchoolEntities1()
+            : base("name=SchoolEntities1")
         {
         }
     

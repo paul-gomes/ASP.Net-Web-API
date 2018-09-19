@@ -10,6 +10,7 @@ namespace ASP.Net_Web_API.Models
 
         public int StandardId { get; set; }
         public string StandardName { get; set; }
+        public string Description { get; set; }
 
         public ICollection<StudentViewModel> Students { get; set; }
     }

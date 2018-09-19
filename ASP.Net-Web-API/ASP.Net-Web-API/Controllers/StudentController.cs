@@ -18,13 +18,21 @@ namespace ASP.Net_Web_API.Controllers
         {
             IList<StudentViewModel> Students = null;
 
-            using (var ctx = new SchoolEntities())
+            using (var ctx = new SchoolEntities1())
             {
-                Students = ctx.Students.Include("StudentAddress")
+                Students = ctx.Students.Include("StudentAddress").Include("Standard")
                     .Select(s => new StudentViewModel()
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        Standard = s.StandardId == null? null : new StandardViewModel()
+                        {
+                            StandardId = s.Standard.StandardId,
+                            StandardName = s.Standard.StandardName,
+                            Description = s.Standard.Description,
+                            
+
+                        },
                         Address = s.StudentAddress == null || includeAddress == false ? null : new AddressViewModel()
                         {
                             Id = s.StudentID,
@@ -78,14 +86,20 @@ namespace ASP.Net_Web_API.Controllers
         public IHttpActionResult GetSudentById(int id)
         {
             StudentViewModel Student = null;
-            using(var ctx = new SchoolEntities())
+            using(var ctx = new SchoolEntities1())
             {
-                Student = ctx.Students.Include("StudentAddress")
+                Student = ctx.Students.Include("StudentAddress").Include("Standard")
                     .Where(s => s.StudentID == id)
                     .Select(s => new StudentViewModel()
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        Standard = s.StandardId == null? null : new StandardViewModel()
+                        {
+                            StandardId = s.Standard.StandardId,
+                            StandardName = s.Standard.StandardName,
+                            Description = s.Standard.Description,
+                        },
                         Address = s.StudentAddress == null ? null : new AddressViewModel()
                         {
                             Id = s.StudentID,
@@ -112,14 +126,20 @@ namespace ASP.Net_Web_API.Controllers
         public IHttpActionResult GetStudentByName(String name)
         {
             IList<StudentViewModel> Students = null;
-            using (var ctx = new SchoolEntities())
+            using (var ctx = new SchoolEntities1())
             {
-                Students = ctx.Students.Include("StudentAddress")
+                Students = ctx.Students.Include("StudentAddress").Include("Standard")
                     .Where(s => s.StudentName == name)
                     .Select(s => new StudentViewModel()
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        Standard = s.StandardId == null? null: new StandardViewModel()
+                        {
+                            StandardId = s.Standard.StandardId,
+                            StandardName = s.Standard.StandardName,
+                            Description = s.Standard.Description,
+                        },
                         Address = s.StudentAddress == null ? null : new AddressViewModel()
                         {
                             Id = s.StudentID,
@@ -148,15 +168,21 @@ namespace ASP.Net_Web_API.Controllers
         {
             IList<StudentViewModel> Students = null;
 
-            using (var ctx = new SchoolEntities())
+            using (var ctx = new SchoolEntities1())
             {
                 Students = ctx.Students.Include("StudentAddress")
-                    .Include("StudentStandard")
+                    .Include("Standard")
                     .Where(s => s.StandardId == standardId)
                     .Select(s => new StudentViewModel()
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        Standard = s.StandardId == null? null : new StandardViewModel()
+                        {
+                            StandardId = s.Standard.StandardId,
+                            StandardName = s.Standard.StandardName,
+                            Description = s.Standard.Description,
+                        },
                         Address = s.StudentAddress == null ? null : new AddressViewModel()
                         {
                             Address1 = s.StudentAddress.Address1,
@@ -177,7 +203,7 @@ namespace ASP.Net_Web_API.Controllers
 
         //Posts new student in the datbase
         
-        public IHttpActionResult PostNewStudent(StudentViewModel student)
+        public IHttpActionResult PostNewStudent(StudentViewModel student, AddressViewModel studentAddress)
         {
 
             //This will make sure that the student object includes all the necessary information. If it is not valid, it will return BadRequest response.
@@ -186,12 +212,22 @@ namespace ASP.Net_Web_API.Controllers
                 return BadRequest("Invalid data");
             }
 
-            using(var ctx = new SchoolEntities())
+            using(var ctx = new SchoolEntities1())
             {
                 ctx.Students.Add(new Student()
                 {
                     StudentID = student.Id,
                     StudentName = student.StudentName,
+                    StandardId = student.stardardId,
+                });
+
+                ctx.StudentAddresses.Add(new StudentAddress()
+                {
+                    StudentID = student.Id,
+                    Address1 = studentAddress.Address1,
+                    Address2 = studentAddress.Address2,
+                    City = studentAddress.City,
+                    State = studentAddress.State,
                 });
                 ctx.SaveChanges();
             }
@@ -213,7 +249,7 @@ namespace ASP.Net_Web_API.Controllers
 
             }
 
-            using(var ctx = new SchoolEntities())
+            using(var ctx = new SchoolEntities1())
             {
                 var existingStudent = ctx.Students.Where(s => s.StudentID == student.Id).FirstOrDefault();
                 
@@ -244,7 +280,7 @@ namespace ASP.Net_Web_API.Controllers
 
             }
 
-            using(var ctx = new SchoolEntities())
+            using(var ctx = new SchoolEntities1())
             {
                 var student = ctx.Students
                     .Where(s => s.StudentID == id)

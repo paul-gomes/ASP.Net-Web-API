@@ -55,8 +55,7 @@
           </Key>
           <Property Name="TeacherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TeacherName" Type="varchar" MaxLength="50" />
-          <Property Name="StandardId" Type="int" />
-          <Property Name="TeacherType" Type="int" />
+          <Property Name="Room" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -148,7 +147,7 @@ warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a pri
               <PropertyRef Name="StandardId" />
             </Principal>
             <Dependent Role="Teacher">
-              <PropertyRef Name="StandardId" />
+              <PropertyRef Name="Room" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -262,8 +261,7 @@ warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a pri
           </Key>
           <Property Name="TeacherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TeacherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StandardId" Type="Int32" />
-          <Property Name="TeacherType" Type="Int32" />
+          <Property Name="Room" Type="Int32" />
           <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Teacher" FromRole="Teacher" ToRole="Course" />
           <NavigationProperty Name="Standard" Relationship="Self.FK_Teacher_Standard" FromRole="Teacher" ToRole="Standard" />
         </EntityType>
@@ -315,7 +313,7 @@ warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a pri
               <PropertyRef Name="StandardId" />
             </Principal>
             <Dependent Role="Teacher">
-              <PropertyRef Name="StandardId" />
+              <PropertyRef Name="Room" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -337,7 +335,7 @@ warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a pri
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SchoolEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Standards" EntityType="Self.Standard" />
           <EntitySet Name="Students" EntityType="Self.Student" />
@@ -390,7 +388,7 @@ warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a pri
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer" CdmEntityContainer="SchoolEntities">
+        <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer" CdmEntityContainer="SchoolEntities1">
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="SchoolModel.Course">
               <MappingFragment StoreEntitySet="Course">
@@ -436,8 +434,7 @@ warning 6002: The table/view 'School.dbo.View_StudentCourse' does not have a pri
               <MappingFragment StoreEntitySet="Teacher">
                 <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
                 <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
-                <ScalarProperty Name="StandardId" ColumnName="StandardId" />
-                <ScalarProperty Name="TeacherType" ColumnName="TeacherType" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

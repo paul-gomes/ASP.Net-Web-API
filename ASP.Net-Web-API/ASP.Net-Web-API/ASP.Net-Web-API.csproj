@@ -188,10 +188,10 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Course.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
     <Compile Include="GetCoursesByStudentId_Result.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,35 +200,35 @@
     <Compile Include="Models\StandardViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SchoolDB.Context.cs">
+    <Compile Include="School.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDB.Context.tt</DependentUpon>
+      <DependentUpon>School.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="SchoolDB.cs">
+    <Compile Include="School.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
-    <Compile Include="SchoolDB.Designer.cs">
+    <Compile Include="School.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDB.edmx</DependentUpon>
+      <DependentUpon>School.edmx</DependentUpon>
     </Compile>
     <Compile Include="Standard.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
     <Compile Include="Student.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentAddress.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
     <Compile Include="Teacher.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
     <Compile Include="View_StudentCourse.cs">
-      <DependentUpon>SchoolDB.tt</DependentUpon>
+      <DependentUpon>School.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -238,15 +238,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="SchoolDB.Context.tt">
+    <Content Include="School.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SchoolDB.Context.cs</LastGenOutput>
-      <DependentUpon>SchoolDB.edmx</DependentUpon>
+      <DependentUpon>School.edmx</DependentUpon>
+      <LastGenOutput>School.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="SchoolDB.tt">
+    <Content Include="School.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SchoolDB.edmx</DependentUpon>
-      <LastGenOutput>SchoolDB.cs</LastGenOutput>
+      <DependentUpon>School.edmx</DependentUpon>
+      <LastGenOutput>School.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -272,12 +272,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="SchoolDB.edmx">
+    <EntityDeploy Include="School.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SchoolDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>School.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="SchoolDB.edmx.diagram">
-      <DependentUpon>SchoolDB.edmx</DependentUpon>
+    <Content Include="School.edmx.diagram">
+      <DependentUpon>School.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

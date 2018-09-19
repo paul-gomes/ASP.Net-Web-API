@@ -9,7 +9,7 @@ namespace ASP.Net_Web_API.Models
     {
         public int Id { get; set; }
         public string StudentName { get; set; }
-        
+        public int stardardId { get; set; }
 
         public AddressViewModel Address { get; set; }
         public StandardViewModel Standard { get; set; }
