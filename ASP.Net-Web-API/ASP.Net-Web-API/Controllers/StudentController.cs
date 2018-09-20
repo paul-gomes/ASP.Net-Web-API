@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ASP.Net_Web_API.Classes;
 using ASP.Net_Web_API.Models;
 
 namespace ASP.Net_Web_API.Controllers
@@ -202,8 +203,8 @@ namespace ASP.Net_Web_API.Controllers
 
 
         //Posts new student in the datbase
-        
-        public IHttpActionResult PostNewStudent(StudentViewModel student, AddressViewModel studentAddress)
+
+        public IHttpActionResult PostNewStudent(StudentStdAddress studentAddress)
         {
 
             //This will make sure that the student object includes all the necessary information. If it is not valid, it will return BadRequest response.
@@ -216,18 +217,18 @@ namespace ASP.Net_Web_API.Controllers
             {
                 ctx.Students.Add(new Student()
                 {
-                    StudentID = student.Id,
-                    StudentName = student.StudentName,
-                    StandardId = student.stardardId,
+                    StudentID = studentAddress.Student.Id,
+                    StudentName = studentAddress.Student.StudentName,
+                    StandardId = studentAddress.Student.stardardId,
                 });
 
                 ctx.StudentAddresses.Add(new StudentAddress()
                 {
-                    StudentID = student.Id,
-                    Address1 = studentAddress.Address1,
-                    Address2 = studentAddress.Address2,
-                    City = studentAddress.City,
-                    State = studentAddress.State,
+                    StudentID = studentAddress.Student.Id,
+                    Address1 = studentAddress.Address.Address1,
+                    Address2 = studentAddress.Address.Address2,
+                    City = studentAddress.Address.City,
+                    State = studentAddress.Address.State,
                 });
                 ctx.SaveChanges();
             }
