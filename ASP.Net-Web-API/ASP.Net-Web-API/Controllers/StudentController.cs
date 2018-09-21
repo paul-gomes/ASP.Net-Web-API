@@ -55,32 +55,6 @@ namespace ASP.Net_Web_API.Controllers
 
         }
 
-        //Gets all the students. Not using IHttpActionResult.
-
-        //public IList<StudentViewModel> GetAllStudents(bool includeAddress = false)
-        //{
-        //    using (var ctx = new SchoolEntities())
-        //    {
-        //        IList<StudentViewModel> Students = ctx.Students.Include("StudentAddress")
-        //            .Select(s => new StudentViewModel()
-        //            {
-        //                Id = s.StudentID,
-        //                StudentName = s.StudentName,
-        //                Address = s.StudentAddress == null || includeAddress == false ? null : new AddressViewModel()
-        //                {
-        //                    Id = s.StudentID,
-        //                    Address1 = s.StudentAddress.Address1,
-        //                    Address2 = s.StudentAddress.Address2,
-        //                    City = s.StudentAddress.City,
-        //                    State = s.StudentAddress.State
-
-        //                }
-        //            }).ToList<StudentViewModel>();
-        //        return Students;
-        //    }
-        //}
-
-
 
         //Get student by Id. Using IHttpActionResult
 
@@ -252,7 +226,9 @@ namespace ASP.Net_Web_API.Controllers
 
             using(var ctx = new SchoolEntities1())
             {
-                var existingStudent = ctx.Students.Where(s => s.StudentID == studentAddress.Student.Id).FirstOrDefault();
+                var existingStudent = ctx.Students
+                    .Where(s => s.StudentID == studentAddress.Student.Id)
+                    .FirstOrDefault();
                 
                 if(existingStudent != null)
                 {
@@ -289,12 +265,12 @@ namespace ASP.Net_Web_API.Controllers
 
             using(var ctx = new SchoolEntities1())
             {
-                var student = ctx.Students
+                var existingStudent = ctx.Students
                     .Where(s => s.StudentID == id)
                     .FirstOrDefault();
-                if(student != null)
+                if(existingStudent != null)
                 {
-                    ctx.Students.Remove(student);
+                    ctx.Students.Remove(existingStudent);
                     ctx.SaveChanges();
                 }
                 else
