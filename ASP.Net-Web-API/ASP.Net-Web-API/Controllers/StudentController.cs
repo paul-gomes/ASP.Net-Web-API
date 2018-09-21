@@ -242,7 +242,7 @@ namespace ASP.Net_Web_API.Controllers
 
         //Updates the existing data in the database
 
-        public IHttpActionResult PutStudent(StudentViewModel student)
+        public IHttpActionResult PutStudent(StudentStdAddress studentAddress)
         {
             if (!ModelState.IsValid)
             {
@@ -252,11 +252,17 @@ namespace ASP.Net_Web_API.Controllers
 
             using(var ctx = new SchoolEntities1())
             {
-                var existingStudent = ctx.Students.Where(s => s.StudentID == student.Id).FirstOrDefault();
+                var existingStudent = ctx.Students.Where(s => s.StudentID == studentAddress.Student.Id).FirstOrDefault();
                 
                 if(existingStudent != null)
                 {
-                    existingStudent.StudentName = student.StudentName;
+                    existingStudent.StudentName = studentAddress.Student.StudentName;
+                    existingStudent.StandardId = studentAddress.Student.stardardId;
+                    existingStudent.StudentAddress.Address1 = studentAddress.Address.Address1;
+                    existingStudent.StudentAddress.Address2 = studentAddress.Address.Address2;
+                    existingStudent.StudentAddress.City = studentAddress.Address.City;
+                    existingStudent.StudentAddress.State = studentAddress.Address.State;
+
                     ctx.SaveChanges();
                 }
 
