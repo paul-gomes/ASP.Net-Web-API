@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ASP.Net_Web_API.Models.StudentViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Standard.StandardName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address.Address1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address.State)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Standard.StandardName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address.Address1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address.State)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
