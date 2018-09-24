@@ -43,5 +43,38 @@ namespace ASP.Net_Web_API.Controllers
 
             return View(students);
         }
+
+        public ActionResult create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult create(StudentStdAddress student)
+        {
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:51541/api/student");
+                var postTask = client.PostAsJsonAsync<StudentStdAddress>("student", student);
+                postTask.Wait();
+
+                var result = postTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server Error. Please contact the administrator.");
+                }
+
+            }
+            return View(student);
+        }
     }
+
+
+
 }
