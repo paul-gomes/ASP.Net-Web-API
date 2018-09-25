@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ASP.Net_Web_API.Models
 {
@@ -9,9 +10,17 @@ namespace ASP.Net_Web_API.Models
     {
         public int Id { get; set; }
         public string StudentName { get; set; }
-        public int stardardId { get; set; }
+        public int? stardardId { get; set; }
 
         public AddressViewModel Address { get; set; }
         public StandardViewModel Standard { get; set; }
+    }
+    public enum StandardList
+    {
+        Freshman = 1,
+        Sophomore = 2,
+        Junior = 3,
+        Senior = 4,
+        Graduate = 5,
     }
 }

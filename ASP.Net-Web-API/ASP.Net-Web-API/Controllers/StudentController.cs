@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using ASP.Net_Web_API.Models;
 using System.Net.Http;
-using ASP.Net_Web_API.Classes;
 
 
 
@@ -51,13 +50,39 @@ namespace ASP.Net_Web_API.Controllers
 
 
         [HttpPost]
-        public ActionResult create(StudentStdAddress student)
+        public ActionResult create(StudentViewModel student)
         {
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:51541/api/student");
-                var postTask = client.PostAsJsonAsync<StudentStdAddress>("student", student);
+
+                string selectStudentStandard = Request.Form["stardardId"].ToString();
+
+                switch (selectStudentStandard)
+                {
+                    case "Freshman" :
+                        student.stardardId = 1;
+                        break;
+                    case "Sophomore":
+                        student.stardardId = 2;
+                        break;
+                    case "Junior":
+                        student.stardardId = 3;
+                        break;
+                    case "Senior":
+                        student.stardardId = 4;
+                        break;
+                    case "Graduate":
+                        student.stardardId = 5;
+                        break;
+                    default:
+                        student.stardardId = null;
+                        break;
+                }
+                
+                var postTask = client.PostAsJsonAsync<StudentViewModel>("student", student);
                 postTask.Wait();
+                
 
                 var result = postTask.Result;
 

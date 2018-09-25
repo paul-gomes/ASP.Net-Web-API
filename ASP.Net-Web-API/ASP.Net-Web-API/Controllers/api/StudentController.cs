@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using ASP.Net_Web_API.Classes;
 using ASP.Net_Web_API.Models;
 
 
@@ -73,9 +72,9 @@ namespace ASP.Net_Web_API.Controllers.api
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        stardardId = s.StandardId ?? default(int),
                         Standard = s.StandardId == null? null : new StandardViewModel()
                         {
-                            StandardId = s.Standard.StandardId,
                             StandardName = s.Standard.StandardName,
                             Description = s.Standard.Description,
                         },
@@ -113,9 +112,9 @@ namespace ASP.Net_Web_API.Controllers.api
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        stardardId = s.StandardId ?? default(int),
                         Standard = s.StandardId == null? null: new StandardViewModel()
                         {
-                            StandardId = s.Standard.StandardId,
                             StandardName = s.Standard.StandardName,
                             Description = s.Standard.Description,
                         },
@@ -156,9 +155,9 @@ namespace ASP.Net_Web_API.Controllers.api
                     {
                         Id = s.StudentID,
                         StudentName = s.StudentName,
+                        stardardId = s.StandardId ?? default(int),
                         Standard = s.StandardId == null? null : new StandardViewModel()
                         {
-                            StandardId = s.Standard.StandardId,
                             StandardName = s.Standard.StandardName,
                             Description = s.Standard.Description,
                         },
@@ -182,7 +181,7 @@ namespace ASP.Net_Web_API.Controllers.api
 
         //Posts new student in the datbase
 
-        public IHttpActionResult PostNewStudent(StudentStdAddress studentAddress)
+        public IHttpActionResult PostNewStudent(StudentViewModel studentAddress)
         {
 
             //This will make sure that the student object includes all the necessary information. If it is not valid, it will return BadRequest response.
@@ -193,16 +192,17 @@ namespace ASP.Net_Web_API.Controllers.api
 
             using(var ctx = new SchoolEntities1())
             {
+                
                 ctx.Students.Add(new Student()
                 {
-                    StudentID = studentAddress.Student.Id,
-                    StudentName = studentAddress.Student.StudentName,
-                    StandardId = studentAddress.Student.stardardId,
+                    StudentID = studentAddress.Id,
+                    StudentName = studentAddress.StudentName,
+                    StandardId = studentAddress.stardardId,
                 });
 
                 ctx.StudentAddresses.Add(new StudentAddress()
                 {
-                    StudentID = studentAddress.Student.Id,
+                    StudentID = studentAddress.Address.Id,
                     Address1 = studentAddress.Address.Address1,
                     Address2 = studentAddress.Address.Address2,
                     City = studentAddress.Address.City,
@@ -220,7 +220,7 @@ namespace ASP.Net_Web_API.Controllers.api
 
         //Updates the existing data in the database
 
-        public IHttpActionResult PutStudent(StudentStdAddress studentAddress)
+        public IHttpActionResult PutStudent(StudentViewModel studentAddress)
         {
             if (!ModelState.IsValid)
             {
@@ -231,13 +231,13 @@ namespace ASP.Net_Web_API.Controllers.api
             using(var ctx = new SchoolEntities1())
             {
                 var existingStudent = ctx.Students
-                    .Where(s => s.StudentID == studentAddress.Student.Id)
+                    .Where(s => s.StudentID == studentAddress.Id)
                     .FirstOrDefault();
                 
                 if(existingStudent != null)
                 {
-                    existingStudent.StudentName = studentAddress.Student.StudentName;
-                    existingStudent.StandardId = studentAddress.Student.stardardId;
+                    existingStudent.StudentName = studentAddress.StudentName;
+                    existingStudent.StandardId = studentAddress.stardardId;
                     existingStudent.StudentAddress.Address1 = studentAddress.Address.Address1;
                     existingStudent.StudentAddress.Address2 = studentAddress.Address.Address2;
                     existingStudent.StudentAddress.City = studentAddress.Address.City;
