@@ -301,6 +301,7 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\create.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Student\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

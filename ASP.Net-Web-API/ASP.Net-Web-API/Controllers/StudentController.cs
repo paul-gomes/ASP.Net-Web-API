@@ -135,6 +135,29 @@ namespace ASP.Net_Web_API.Controllers
             }
             return View(student);
         }
+
+
+
+        //Delete a student record 
+
+        public ActionResult Delete(int id)
+        {
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:51541/api/");
+                var deleteTask = client.DeleteAsync("student/" + id.ToString());
+                deleteTask.Wait();
+
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return RedirectToAction("Error.cshtml");
+
+        }
     }
 
 
