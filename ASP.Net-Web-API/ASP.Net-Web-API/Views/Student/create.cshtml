@@ -1,5 +1,6 @@
 ﻿@model ASP.Net_Web_API.Models.StudentViewModel
 @using ASP.Net_Web_API.Models
+@using ASP.Net_Web_API.Classes
 
 @{
     ViewBag.Title = "Create";
@@ -27,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.stardardId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("stardardId", new SelectList(Enum.GetValues(typeof(StandardList))), "Select student standard", new { @class = "form-control" })
+                @Html.DropDownList("stardardId", new SelectList(Functionality.getStandardList(), "Value", "Text", 0), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.stardardId, "", new { @class = "text-danger" })
             </div>
         </div>

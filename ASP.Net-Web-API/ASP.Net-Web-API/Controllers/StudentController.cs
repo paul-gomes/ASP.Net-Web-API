@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ASP.Net_Web_API.Models;
 using System.Net.Http;
+using ASP.Net_Web_API.Classes;
 
 
 
@@ -43,6 +44,8 @@ namespace ASP.Net_Web_API.Controllers
             return View(students);
         }
 
+
+        //Post a new student 
         public ActionResult create()
         {
             return View();
@@ -50,35 +53,12 @@ namespace ASP.Net_Web_API.Controllers
 
 
         [HttpPost]
+
         public ActionResult create(StudentViewModel student)
         {
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:51541/api/student");
-
-                string selectStudentStandard = Request.Form["stardardId"].ToString();
-
-                switch (selectStudentStandard)
-                {
-                    case "Freshman" :
-                        student.stardardId = 1;
-                        break;
-                    case "Sophomore":
-                        student.stardardId = 2;
-                        break;
-                    case "Junior":
-                        student.stardardId = 3;
-                        break;
-                    case "Senior":
-                        student.stardardId = 4;
-                        break;
-                    case "Graduate":
-                        student.stardardId = 5;
-                        break;
-                    default:
-                        student.stardardId = null;
-                        break;
-                }
                 
                 var postTask = client.PostAsJsonAsync<StudentViewModel>("student", student);
                 postTask.Wait();
@@ -95,6 +75,63 @@ namespace ASP.Net_Web_API.Controllers
                     ModelState.AddModelError(string.Empty, "Server Error. Please contact the administrator.");
                 }
 
+            }
+            return View(student);
+        }
+
+
+        //Edit existing student 
+        //Shows existing student for editing
+        public ActionResult Edit(int id)
+        {
+            StudentViewModel student = null;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:51541/api/");
+
+                //HTTP Get
+                var responseTask = client.GetAsync("student?id=" + id.ToString());
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<StudentViewModel>();
+                    readTask.Wait();
+                    student = readTask.Result;
+                }
+
+                return View(student);
+            };
+
+            
+        }
+
+        //posting edited data into the database
+
+        [HttpPost]
+        public ActionResult Edit(StudentViewModel student)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:51541/api/");
+                //var postTask = client.PostAsJsonAsync<StudentViewModel>("student", student);
+
+                var postTask = client.PutAsJsonAsync<StudentViewModel>("student", student);
+                postTask.Wait();
+
+                var result = postTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact the administrator.");
+                }
             }
             return View(student);
         }
