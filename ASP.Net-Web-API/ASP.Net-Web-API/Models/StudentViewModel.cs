@@ -15,12 +15,5 @@ namespace ASP.Net_Web_API.Models
         public AddressViewModel Address { get; set; }
         public StandardViewModel Standard { get; set; }
     }
-    public enum StandardList
-    {
-        Freshman = 1,
-        Sophomore = 2,
-        Junior = 3,
-        Senior = 4,
-        Graduate = 5,
-    }
+
 }
